@@ -3,7 +3,7 @@
 import { ClipLoader } from "react-spinners";
 import { toast } from "sonner";
 import { FaPen, FaListAlt } from 'react-icons/fa';
-import { useCreateTodoMutation } from "../../../redux/features/todo/todoApi";
+import { useUpdateTodoMutation } from "../../../redux/features/todo/todoApi";
 
 
 // type for todo
@@ -22,7 +22,7 @@ type TModalProps = {
 
 
 export default function EditTodoModal({ todo, setOpenModal} : TModalProps) {
-  const [createPost, { isLoading }] = useCreateTodoMutation();
+  const [updateTodo, { isLoading }] = useUpdateTodoMutation();
 
 
   const handleSubmit = async (e : any) => {
@@ -34,18 +34,21 @@ export default function EditTodoModal({ todo, setOpenModal} : TModalProps) {
   const priority = form.get('priority') as string
 
 
-    const todoData : TTodo = {
-      title, deadline, priority, status : 'ongoing',
+    const todoData : Partial<TTodo> = {
+      title, deadline, priority,
       }
 
       try {
-          const response =  await createPost(todoData).unwrap();
+          const response =  await updateTodo({
+            todoId : todo?._id as string,
+            payload : todoData
+          }).unwrap();
       
         if(response?.success){
           // close the modal 
           setOpenModal(false)
           // show a toast 
-          toast.success('Created a new task')
+          toast.success('Modified the task.')
         }
         }catch(error){
           toast.error('Something went wrong')
@@ -78,6 +81,7 @@ export default function EditTodoModal({ todo, setOpenModal} : TModalProps) {
         <FaPen className="text-gray-500 text-xl" />
         <input name="title"
           type="text"
+          defaultValue={todo?.title}
           placeholder="Post Title"
           className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
@@ -87,7 +91,11 @@ export default function EditTodoModal({ todo, setOpenModal} : TModalProps) {
       <div className="flex items-center space-x-3">
         <FaListAlt className="text-gray-500 text-xl" />
        
-        <select name="priority" className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none text-gray-400"  >
+        <select
+         defaultValue={todo?.priority}
+         name="priority"
+
+          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none text-gray-600"  >
               <option disabled selected>Select Priority</option>
               <option value='low'>Low</option>
               <option value='medium'>Medium</option>
@@ -102,7 +110,9 @@ export default function EditTodoModal({ todo, setOpenModal} : TModalProps) {
         <div className="flex items-center space-x-3">
         <FaListAlt className="text-gray-500 text-xl" />
        
-       <input type="date" name="deadline" defaultValue={''}
+       <input type="date" name="deadline" 
+       defaultValue={todo?.deadline}
+
           className="w-full p-3 border text-gray-500 border-gray-300 dark:border-gray-700 rounded-md focus:outline-none"
         />
         </div>
@@ -112,9 +122,9 @@ export default function EditTodoModal({ todo, setOpenModal} : TModalProps) {
     </div>
        
 
-<button type="submit" className="px-8 text-sm lg:text-base ml-9 mb-5 md:mb-4 mx-3 py-2 md:py-2 font-semibold text-white rounded transition bg-blue-600 hover:bg-blue-700 "> Create</button>
+<button type="submit" className="px-8 text-sm lg:text-base ml-9 mb-5 md:mb-4 mx-3 py-2 md:py-2 font-semibold text-white rounded transition bg-blue-600 hover:bg-blue-700 "> Edit</button>
 
-<button onClick={() => setOpenModal(false)} className="px-8 text-sm lg:text-base mr-3 py-2 md:py-2 font-semibold text-gray-600 rounded transition bg-gray-200 dark:bg-gray-700 hover:dark:bg-gray-600 hover:bg-gray-300 dark:text-gray-300"> Close </button>
+<button onClick={() => setOpenModal(false)} className="px-8 text-sm lg:text-base mr-3 py-2 md:py-2 font-semibold text-gray-600 rounded transition bg-gray-100 dark:bg-gray-700 hover:dark:bg-gray-600 hover:bg-gray-200 dark:text-gray-300"> Close </button>
 </form>
        
        </section>

@@ -10,6 +10,7 @@ import Todo from "./Todo";
 const TodoSection = () => {
     const [ openCreateModal, setOpenCreateModal] = useState(false)
 
+
     const { data} = useGetTodosQuery(undefined);
     const todos : TTodo[]  = data?.data || [];
 

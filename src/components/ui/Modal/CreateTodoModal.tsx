@@ -21,7 +21,7 @@ type TModalProps = {
 
 
 export default function CreateTodoModal({ setOpenModal} : TModalProps) {
-  const [createPost, { isLoading }] = useCreateTodoMutation();
+  const [createTodo, { isLoading }] = useCreateTodoMutation();
 
 
   const handleSubmit = async (e : any) => {
@@ -38,7 +38,7 @@ export default function CreateTodoModal({ setOpenModal} : TModalProps) {
       }
 
       try {
-          const response =  await createPost(todoData).unwrap();
+          const response =  await createTodo(todoData).unwrap();
       
         if(response?.success){
           // close the modal 
@@ -86,7 +86,7 @@ export default function CreateTodoModal({ setOpenModal} : TModalProps) {
       <div className="flex items-center space-x-3">
         <FaListAlt className="text-gray-500 text-xl" />
        
-        <select name="priority" className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none text-gray-400"  >
+        <select name="priority" className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none text-gray-500"  >
               <option disabled selected>Select Priority</option>
               <option value='low'>Low</option>
               <option value='medium'>Medium</option>
