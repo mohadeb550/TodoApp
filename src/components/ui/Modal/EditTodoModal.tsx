@@ -61,7 +61,7 @@ export default function EditTodoModal({ todo, setOpenModal} : TModalProps) {
   return (
     <section className="w-screen fixed inset-0 bottom-0 z-50  bg-black/20  backdrop-blur-sm dark:backdrop-blur-lg flex justify-center items-center py-10 overflow-y-auto px-4">  
        
-       <form className="w-full md:w-[700px] h-fit bg-white dark:bg-gray-800 rounded-md relative" onSubmit={handleSubmit}>
+       <form className="w-full md:w-[500px] h-fit bg-white dark:bg-gray-800 rounded-md relative" onSubmit={handleSubmit}>
 
         {/* loading white layer  */}
       {isLoading && <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 bg-white/80 dark:bg-black/30  rounded-md flex justify-center items-center"> 
@@ -82,8 +82,8 @@ export default function EditTodoModal({ todo, setOpenModal} : TModalProps) {
         <input name="title"
           type="text"
           defaultValue={todo?.title}
-          placeholder="Post Title"
-          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Todo Title"
+          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none "
         />
       </div>
 

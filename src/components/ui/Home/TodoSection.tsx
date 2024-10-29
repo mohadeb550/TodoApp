@@ -17,9 +17,9 @@ const TodoSection = () => {
     return (
        <Container>
 
-          <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-3xl w-full">
-        <h2 className="text-2xl lg:text-3xl font-bold text-gray-600 mb-4 text-center">Create Your Todo</h2>
+          <div className="min-h-screen bg-gray-100 flex items-center justify-center py-20">
+      <div className="bg-white shadow-lg rounded-lg p-6 max-w-3xl w-full ">
+        <h2 className="text-2xl lg:text-3xl font-bold text-gray-600 mb-4 text-center">Maintain Your Tasks Easily</h2>
 
         {/* render the modal based on the modal state  */}
         {openCreateModal && <CreateTodoModal setOpenModal={setOpenCreateModal} />}
